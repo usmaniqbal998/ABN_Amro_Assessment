@@ -9,6 +9,10 @@ const baseURL = "https://api.tvmaze.com/";
 
 export const api = axios.create({
   baseURL,
+  responseType: "json",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 ReactDOM.render(
