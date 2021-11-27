@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 import { device } from "../../styles/devices";
 
@@ -6,13 +5,23 @@ export function TextLoader() {
   return <TextLoading></TextLoading>;
 }
 
-export function PostLoader() {
+export function TVShowLoader() {
   return (
     <Card>
       <ImageLoading />
       <TitleLoading />
       <SubTitleLoading />
     </Card>
+  );
+}
+
+export function SingleTVShowLoader() {
+  return (
+    <SingleTvShow>
+      <SinglemageLoading />
+      <TitleLoading />
+      <SubTitleLoading />
+    </SingleTvShow>
   );
 }
 
@@ -41,6 +50,18 @@ const Card = styled.div`
   }
 `;
 
+const SingleTvShow = styled(Card)`
+  width: 23rem;
+  height: 38rem;
+  display: inline-block;
+
+  @media ${device.mobileL} {
+    width: 14rem;
+    height: 28rem;
+    margin-right: 1.2rem;
+  }
+`;
+
 const ImageLoading = styled.div`
   height: 50%;
   animation: ${SkeletonAnimation} 1s linear infinite alternate;
@@ -56,6 +77,10 @@ const TitleLoading = styled.div`
   @media ${device.mobileL} {
     width: 8rem;
   }
+`;
+
+const SinglemageLoading = styled(ImageLoading)`
+  height: 62%;
 `;
 
 const SubTitleLoading = styled.div`

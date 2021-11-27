@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 
 import NavBar from "./components/navbar";
 import SearchView from "./views/search";
@@ -10,6 +10,14 @@ import styled from "styled-components";
 function App() {
   const [searchText, setSearchText] = useState("");
   const history = useHistory();
+
+  React.useEffect(() => {
+    history.listen((location, action) => {
+      if (action === "POP") {
+        history.replace("/browse");
+      }
+    });
+  });
 
   function changeQuerySearchParams(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchText(e.target.value);
@@ -29,6 +37,9 @@ function App() {
         <Switch>
           <Route path="/search" component={SearchView} />
           <Route path="/browse" component={BrowseShows} />
+          <Route path="/" component={BrowseShows}>
+            <Redirect to="/browse" />
+          </Route>
         </Switch>
       </Main>
     </div>

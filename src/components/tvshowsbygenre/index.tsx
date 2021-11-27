@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, UIEvent } from "react";
 import styled from "styled-components";
 import { api } from "../..";
 import TvShowCard from "../tvshowcard";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { device } from "../../styles/devices";
-import { PostLoader, TextLoader } from "../SekeletonLoaders";
+import {
+  TVShowLoader,
+  SingleTVShowLoader,
+  TextLoader,
+} from "../SekeletonLoaders";
+import { tvShow } from "./types";
 
 interface TvShowsByGenreProps {
   genre: string;
@@ -16,17 +21,24 @@ const TvShowsByGenre: React.FunctionComponent<TvShowsByGenreProps> = ({
   genre,
   title,
 }) => {
-  const [tvShows, setTvShows] = useState([]);
+  const [tvShows, setTvShows] = useState<tvShow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [paginationEndReached, setPaginationEndReached] = useState(false);
+
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getTvShows();
   }, []);
 
+  useEffect(() => {
+    if (page > 1) loadMore();
+  }, [page]);
+
   async function getTvShows() {
     try {
-      const shows = await api.get("/shows?page=1&embed=episodes");
+      const shows = await api.get(`/shows?page=${page}&embed=episodes`);
       filterbyGenre(shows.data, genre);
       setLoading(false);
     } catch (error) {
@@ -35,12 +47,11 @@ const TvShowsByGenre: React.FunctionComponent<TvShowsByGenreProps> = ({
     }
   }
 
-  function filterbyGenre(shows: any, genre: string) {
+  function filterbyGenre(shows: tvShow[], genre: string) {
     const filteredShows = shows.filter((show: { genres?: string[] }) => {
       return show?.genres?.includes(genre);
     });
-
-    setTvShows(filteredShows);
+    setTvShows([...tvShows, ...filteredShows]); // destructuring because same function is being used by loadMore() also
   }
 
   function scrollLeft() {
@@ -63,20 +74,35 @@ const TvShowsByGenre: React.FunctionComponent<TvShowsByGenreProps> = ({
     }
   }
 
+  function onSliderReachedEnd(e: UIEvent<HTMLDivElement>) {
+    if (sliderRef.current) {
+      if (
+        sliderRef.current.scrollLeft + sliderRef.current.offsetWidth ===
+        e.currentTarget.scrollWidth
+      ) {
+        if (!paginationEndReached) setPage(page + 1);
+      }
+    }
+  }
+
+  async function loadMore() {
+    try {
+      const shows = await api.get(`/shows?page=${page}&embed=episodes`);
+      filterbyGenre(shows.data, genre);
+    } catch (error) {
+      console.log(error);
+      setPaginationEndReached(true);
+    }
+  }
+
   return (
     <MainContainer>
       {loading ? <TextLoader /> : <ListTitle>{title}</ListTitle>}
-      <SliderContainer ref={sliderRef}>
-        {loading
-          ? Array.from(Array(10).keys()).map((i) => <PostLoader key={i} />)
-          : tvShows.map(
-              (show: {
-                id: string;
-                image: { medium: string };
-                name: string;
-                summary: string;
-                genres: string[];
-              }) => (
+      <SliderContainer ref={sliderRef} onScroll={onSliderReachedEnd}>
+        <>
+          {loading
+            ? Array.from(Array(10).keys()).map((i) => <TVShowLoader key={i} />)
+            : tvShows.map((show: tvShow) => (
                 <TvShowCard
                   key={show.id}
                   coverImage={show?.image.medium}
@@ -84,8 +110,9 @@ const TvShowsByGenre: React.FunctionComponent<TvShowsByGenreProps> = ({
                   summary={show.summary}
                   genres={show.genres}
                 />
-              )
-            )}
+              ))}
+          {!paginationEndReached && <SingleTVShowLoader />}
+        </>
       </SliderContainer>
       {!loading && (
         <ArrowLeftContainer onClick={scrollLeft}>
