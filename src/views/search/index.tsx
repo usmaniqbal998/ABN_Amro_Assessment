@@ -5,7 +5,7 @@ import { api } from "../..";
 import { TVShowLoader } from "../../components/SekeletonLoaders";
 import TvShowCard from "../../components/tvshowcard";
 import { device } from "../../styles/devices";
-import { tvShow, searchResponse } from "./types";
+import { searchResponse } from "./types";
 import debounce from "lodash.debounce";
 import NotFoundIco from "./notfoundIco";
 

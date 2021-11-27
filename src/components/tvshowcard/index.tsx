@@ -51,8 +51,6 @@ const CardContainer = styled.div<CardContainerProps>`
   position: relative;
   width: ${(props) => !props.searchCard && "23rem"};
   height: 38rem;
-  /* margin-top: ${(props) => props.searchCard && "2rem"}; */
-  /* flex: ${(props) => props.searchCard && "1 1 23rem"}; */
   background-color: #1a242f;
   border-radius: 0.6rem;
   overflow: hidden;
@@ -69,10 +67,9 @@ const CardContainer = styled.div<CardContainerProps>`
   }
 
   @media ${device.mobileL} {
-    width: 14rem;
+    width: ${(props) => !props.searchCard && "14rem"};
     height: 28rem;
     margin-right: 1.2rem;
-    /* flex: ${(props) => props.searchCard && "1 1 14rem"}; */
   }
 `;
 
