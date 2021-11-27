@@ -8,20 +8,25 @@ interface TvShowCardProps {
   title: string;
   summary: string;
   genres: string[];
+  searchCard?: boolean;
 }
 
+interface CardContainerProps {
+  searchCard: boolean;
+}
 const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
   coverImage,
   title,
   summary,
   genres,
+  searchCard = false,
 }) => {
   function stripHtml(summary: string): string {
-    return summary.replace(/<\/?[^>]+(>|$)/g, "");
+    return summary?.replace(/<\/?[^>]+(>|$)/g, "");
   }
 
   return (
-    <CardContainer>
+    <CardContainer searchCard={searchCard}>
       <CardImageContainer>
         <CardImage src={coverImage} />
       </CardImageContainer>
@@ -35,17 +40,19 @@ const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
             <GenreChips>genre</GenreChips>
           ))}
         </GenreContainer>
-        <Summary>{stripHtml(summary).slice(0, 70)}</Summary>
+        <Summary>{stripHtml(summary)?.slice(0, 70) || ""}</Summary>
         {/* <EpisodesCount>23 Episodes</EpisodesCount> */}
       </ContentContainer>
     </CardContainer>
   );
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<CardContainerProps>`
   position: relative;
-  width: 23rem;
+  width: ${(props) => !props.searchCard && "23rem"};
   height: 38rem;
+  /* margin-top: ${(props) => props.searchCard && "2rem"}; */
+  /* flex: ${(props) => props.searchCard && "1 1 23rem"}; */
   background-color: #1a242f;
   border-radius: 0.6rem;
   overflow: hidden;
@@ -65,6 +72,7 @@ const CardContainer = styled.div`
     width: 14rem;
     height: 28rem;
     margin-right: 1.2rem;
+    /* flex: ${(props) => props.searchCard && "1 1 14rem"}; */
   }
 `;
 

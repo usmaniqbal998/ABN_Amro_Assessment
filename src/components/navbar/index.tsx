@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { AiOutlineSearch } from "react-icons/ai";
 
 interface NavBarProps {
-  searchText: string;
   onSearchTextChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const NavBar: React.FunctionComponent<NavBarProps> = ({
-  searchText,
   onSearchTextChanged,
 }) => {
   const history = useHistory();
+  const { search } = useLocation();
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(search);
+    const searchKeyword = urlParams.get("q");
+    if (typeof searchKeyword === "string") setSearchText(searchKeyword);
+  }, [search]);
 
   function routeToSearch() {
     history.push({

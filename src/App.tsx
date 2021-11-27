@@ -8,7 +8,6 @@ import BrowseShows from "./views/browse";
 import styled from "styled-components";
 
 function App() {
-  const [searchText, setSearchText] = useState("");
   const history = useHistory();
 
   React.useEffect(() => {
@@ -20,7 +19,6 @@ function App() {
   });
 
   function changeQuerySearchParams(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchText(e.target.value);
     history.push({
       pathname: "/search",
       search: new URLSearchParams({ q: e.target.value }).toString(),
@@ -29,10 +27,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar
-        searchText={searchText}
-        onSearchTextChanged={changeQuerySearchParams}
-      />
+      <NavBar onSearchTextChanged={changeQuerySearchParams} />
       <Main>
         <Switch>
           <Route path="/search" component={SearchView} />
