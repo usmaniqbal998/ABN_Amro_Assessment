@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { device } from "../../styles/devices";
+import { ModalContext } from "../../App";
 
 interface TvShowCardProps {
   coverImage: string;
   title: string;
   summary: string;
-  genres: string[];
+  genres?: string[];
   searchCard?: boolean;
+  episode?: boolean;
+  id: number;
 }
 
 interface CardContainerProps {
   searchCard: boolean;
+  cardTypeEpisode: boolean;
 }
 const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
   coverImage,
@@ -20,13 +24,29 @@ const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
   summary,
   genres,
   searchCard = false,
+  episode = false,
+  id,
 }) => {
+  const openModal = useContext(ModalContext);
+
   function stripHtml(summary: string): string {
     return summary?.replace(/<\/?[^>]+(>|$)/g, "");
   }
 
+  function openDetails() {
+    if (!episode)
+      openModal({
+        open: true,
+        showId: id.toString(),
+      });
+  }
+
   return (
-    <CardContainer searchCard={searchCard}>
+    <CardContainer
+      searchCard={searchCard}
+      cardTypeEpisode={episode}
+      onClick={openDetails}
+    >
       <CardImageContainer>
         <CardImage src={coverImage} />
       </CardImageContainer>
@@ -36,8 +56,8 @@ const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
           <AddToListIcon />
         </TitleContainer>
         <GenreContainer>
-          {genres.map((genre) => (
-            <GenreChips>genre</GenreChips>
+          {genres?.map((genre) => (
+            <GenreChips>{genre}</GenreChips>
           ))}
         </GenreContainer>
         <Summary>{stripHtml(summary)?.slice(0, 70) || ""}</Summary>
@@ -50,7 +70,9 @@ const TvShowCard: React.FunctionComponent<TvShowCardProps> = ({
 const CardContainer = styled.div<CardContainerProps>`
   position: relative;
   width: ${(props) => !props.searchCard && "23rem"};
-  height: 38rem;
+  width: ${(props) => props.cardTypeEpisode && "18rem"};
+
+  height: ${(props) => (props.cardTypeEpisode ? "34rem" : "38rem")};
   background-color: #1a242f;
   border-radius: 0.6rem;
   overflow: hidden;

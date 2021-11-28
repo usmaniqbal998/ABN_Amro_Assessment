@@ -1,5 +1,5 @@
 export interface tvShow {
-  id: string;
+  id: number;
   image: { medium: string };
   name: string;
   summary: string;

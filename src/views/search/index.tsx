@@ -62,6 +62,7 @@ const SearchView: React.FunctionComponent<SearchViewProps> = () => {
                     summary={show.summary}
                     genres={show.genres}
                     searchCard={true}
+                    id={show.id}
                   />
                 ))}
           </>

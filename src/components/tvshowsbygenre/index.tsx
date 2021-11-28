@@ -109,6 +109,7 @@ const TvShowsByGenre: React.FunctionComponent<TvShowsByGenreProps> = ({
                   title={show.name}
                   summary={show.summary}
                   genres={show.genres}
+                  id={show.id}
                 />
               ))}
           {!paginationEndReached && <SingleTVShowLoader />}

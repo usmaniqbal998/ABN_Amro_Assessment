@@ -25,6 +25,20 @@ export function SingleTVShowLoader() {
   );
 }
 
+export function DetailsLoader() {
+  return (
+    <Details>
+      <ShowImageDetail />
+      <div>
+        <TitleLoading />
+        <SubTitleLoading />
+        <SubTitleLoading />
+        <SubTitleLoading />
+      </div>
+    </Details>
+  );
+}
+
 const SkeletonAnimation = keyframes`
  0% { background-color: hsl(211deg 29% 14%) }
  100% { background-color: hsl(211deg 29% 24%) }
@@ -66,6 +80,18 @@ const ImageLoading = styled.div`
   height: 50%;
   animation: ${SkeletonAnimation} 1s linear infinite alternate;
   height: 15rem;
+`;
+
+const Details = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const ShowImageDetail = styled.div`
+  animation: ${SkeletonAnimation} 1s linear infinite alternate;
+  margin-right: 2.4rem;
+  width: 40%;
+  height: 30rem;
 `;
 
 const TitleLoading = styled.div`
