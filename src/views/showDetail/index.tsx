@@ -153,7 +153,6 @@ const ModalContainer = styled.div`
 
   @media ${device.mobileL} {
     width: 100vw;
-    min-height: 120rem;
     top: 0%;
     left: 0%;
     transform: translate(0%, 0%);
@@ -171,7 +170,7 @@ const Overlay = styled.div`
   z-index: 100;
 
   @media ${device.mobileL} {
-    position: unset;
+    overflow: auto;
   }
 `;
 
