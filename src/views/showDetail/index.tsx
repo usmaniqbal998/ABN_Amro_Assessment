@@ -191,12 +191,13 @@ const TvShowImage = styled.img`
 
 const Title = styled.div`
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 2.4rem;
   font-weight: 500;
   text-align: left;
 
   @media ${device.mobileL} {
     float: unset;
+    font-size: 1.6rem;
   }
 `;
 
