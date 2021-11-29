@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import TvShowCard from "../../components/tvshowcard";
 import { api } from "../..";
-import { ModalContext } from "../../App";
 import { DetailsLoader, TVShowLoader } from "../../components/SekeletonLoaders";
 import { device } from "../../styles/devices";
 
