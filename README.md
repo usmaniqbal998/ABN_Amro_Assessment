@@ -1,5 +1,3 @@
-# Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -29,18 +27,46 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## TV Maze Api Limitation for genre
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+tv maze api does not have any endpoint where you can pass genre and get results for specific genre
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Solution:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+solution that i used is i fetch TV shows and the filter genre on the frontend side using following function
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+ function filterbyGenre(shows: tvShow[], genre: string) {
+    const filteredShows = shows.filter((show: { genres?: string[] }) => {
+      return show?.genres?.includes(genre);
+    });
+    setTvShows([...tvShows, ...filteredShows]); // destructuring because same function is being used by loadMore() when we reach end of scroll
+  }
+```
 
-## Learn More
+## Features Implemented
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Fetch TV Shows (/browse)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] Fetch all tv shows by genre and display in horizontal scrollbar
+- [x] data is paginated in scrollbar so once you reach end of horizontal
+      scroll it loads data from the next page (i am proud of this one lol :heart: )
+- [x] you can use arrows on left and right to move through tv items.
+- [x] I have added a cool skeleton loading animation for this component
+- [ ] I could have added empty state here to show no data was fetched but Nahh i didnt had time for it :disappointed:
+
+### Search TV Shows (/search)
+
+- [x] on input field focus user routes to search page and can add queries there
+- [x] Yesss This page has empty state if no results found :simple_smile:
+- [x] debounce function added on search to throttle multiple calls because a call is made to api
+      on text Change
+
+### View Show Details
+
+- [x] on click of any Tv Show Card a nice popup opens that shows show details
+      and previous episodes in a horizontal slider
+
+### View Show Details
+
+On Following link you can see (demo video)[https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing] of project.

@@ -172,21 +172,4 @@ const Summary = styled.p`
   }
 `;
 
-const EpisodesCount = styled.div`
-  color: #fff;
-  font-size: 1.2rem;
-  padding: 0px 4px;
-  background-color: #05a7e1;
-  border-radius: 4px;
-  display: inline-block;
-  width: max-content;
-  position: absolute;
-  right: 1.2rem;
-  bottom: 1.2rem;
-
-  @media ${device.mobileL} {
-    display: none;
-  }
-`;
-
 export default TvShowCard;

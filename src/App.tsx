@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Redirect, useHistory } from "react-router";
 
@@ -33,7 +33,6 @@ function App() {
   }
 
   function openModal(args: { open: boolean; showId: string }) {
-    console.log(args);
     setModalData(args);
   }
 
@@ -43,7 +42,6 @@ function App() {
       <ModalContext.Provider value={openModal}>
         <Main>
           <Switch>
-            <Route path="/show/:id" component={ShowDetail} />
             <Route path="/search" component={SearchView} />
             <Route path="/browse" component={BrowseShows} />
             <Route path="/" component={BrowseShows}>

@@ -54,7 +54,6 @@ const ShowDetail: React.FunctionComponent<ShowDetailProps> = ({
       const show = await api.get(`/shows/${modalData.showId}?embed=episodes`);
       setTvShow(show.data);
       setLoading(false);
-      console.log(show.data);
     } catch (error) {
       console.log(error);
       setLoading(false);
