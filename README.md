@@ -70,3 +70,10 @@ solution that i used is i fetch TV shows and the filter genre on the frontend si
 ## Project Demo Video
 
 On Following link you can see [demo video](https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing) of project.
+
+### Why not Vue
+
+during interview yes i was told to do it in Vue but i did it in react . I had to travel
+to Pakistan due to some emergency so due to travelling and office work i had less time
+to learn Vue and perform assignment in the same time . but yes i am open to learning this framework
+in future. for now enjoy React :smile:
