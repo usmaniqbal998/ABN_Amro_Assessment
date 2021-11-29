@@ -67,6 +67,6 @@ solution that i used is i fetch TV shows and the filter genre on the frontend si
 - [x] on click of any Tv Show Card a nice popup opens that shows show details
       and previous episodes in a horizontal slider
 
-### View Show Details
+## Project Demo Video
 
-On Following link you can see (demo video)[https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing] of project.
+On Following link you can see ( demo video ) [ https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing ] of project.
