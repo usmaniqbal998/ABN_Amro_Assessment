@@ -69,4 +69,4 @@ solution that i used is i fetch TV shows and the filter genre on the frontend si
 
 ## Project Demo Video
 
-On Following link you can see ( demo video ) [ https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing ] of project.
+On Following link you can see [demo video](https://drive.google.com/file/d/14FiiuoLH-YXREtSsjJWWdpJSgORQyU7H/view?usp=sharing) of project.
